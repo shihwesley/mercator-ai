@@ -29,13 +29,18 @@ MANIFEST="$PROJECT_ROOT/docs/.mercator.json"
 # No manifest = never mapped, skip
 [ -f "$MANIFEST" ] || exit 0
 
-# Find scanner script — check plugin install locations
+# Find scanner script
 SCANNER=""
-for path in \
-  "$HOME/.claude/plugins/"**/mercator-ai/*/skills/mercator-ai/scripts/scan-codebase.py \
-  "$PROJECT_ROOT/.claude/plugins/"**/mercator-ai/*/skills/mercator-ai/scripts/scan-codebase.py; do
-  [ -f "$path" ] && SCANNER="$path" && break
-done
+# Check CLAUDE_PLUGIN_ROOT first (set by Claude Code when running plugin hooks)
+if [ -n "${CLAUDE_PLUGIN_ROOT:-}" ] && [ -f "$CLAUDE_PLUGIN_ROOT/skills/mercator-ai/scripts/scan-codebase.py" ]; then
+  SCANNER="$CLAUDE_PLUGIN_ROOT/skills/mercator-ai/scripts/scan-codebase.py"
+else
+  # Fallback: search plugin cache locations
+  for path in \
+    "$HOME/.claude/plugins/cache/"**/mercator-ai/*/skills/mercator-ai/scripts/scan-codebase.py; do
+    [ -f "$path" ] && SCANNER="$path" && break
+  done
+fi
 [ -z "$SCANNER" ] && exit 0
 
 # --- Step 1: Get diff BEFORE refreshing manifest ---
