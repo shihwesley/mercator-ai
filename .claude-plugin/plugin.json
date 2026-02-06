@@ -1,0 +1,25 @@
+{
+  "name": "mercator-ai",
+  "version": "1.0.0",
+  "description": "Merkle-enhanced codebase mapping for AI agents. O(1) change detection, zero-token staleness prevention, parallel subagent analysis.",
+  "author": {
+    "name": "shihwesley",
+    "url": "https://github.com/shihwesley"
+  },
+  "based_on": {
+    "name": "cartographer",
+    "author": "Bootoshi",
+    "url": "https://github.com/kingbootoshi/cartographer",
+    "license": "MIT"
+  },
+  "hooks": {
+    "post_install": {
+      "copy": [
+        {
+          "from": "hooks/mercator-auto-refresh.sh",
+          "to": ".claude/hooks/mercator-auto-refresh.sh"
+        }
+      ]
+    }
+  }
+}
