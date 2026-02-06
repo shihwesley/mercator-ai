@@ -6,20 +6,21 @@
     "name": "shihwesley",
     "url": "https://github.com/shihwesley"
   },
-  "based_on": {
-    "name": "cartographer",
-    "author": "Bootoshi",
-    "url": "https://github.com/kingbootoshi/cartographer",
-    "license": "MIT"
-  },
+  "homepage": "https://github.com/shihwesley/mercator-ai",
+  "repository": "https://github.com/shihwesley/mercator-ai",
+  "license": "MIT",
+  "keywords": ["codebase", "architecture", "documentation", "mapping", "merkle-tree", "change-detection"],
   "hooks": {
-    "post_install": {
-      "copy": [
-        {
-          "from": "hooks/mercator-auto-refresh.sh",
-          "to": ".claude/hooks/mercator-auto-refresh.sh"
-        }
-      ]
-    }
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/mercator-auto-refresh.sh"
+          }
+        ]
+      }
+    ]
   }
 }

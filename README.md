@@ -19,10 +19,18 @@ Merkle-enhanced codebase mapping for AI agents. Maps codebases of any size using
 
 ## Install
 
-### Claude Code Plugin Registry
+### Add the marketplace and install
+
+```
+/plugin marketplace add shihwesley/mercator-ai
+/plugin install mercator-ai@mercator-ai
+```
+
+Or via CLI:
 
 ```bash
-claude plugins install mercator-ai
+claude plugin marketplace add shihwesley/mercator-ai
+claude plugin install mercator-ai@mercator-ai
 ```
 
 ### Manual (GitHub)
