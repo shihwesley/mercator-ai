@@ -203,6 +203,36 @@ The generated `docs/CODEBASE_MAP.md` includes:
 - **Gotchas** — Non-obvious behaviors and warnings
 - **Navigation Guide** — How to add features, modify systems
 
+## Updating
+
+### Enable auto-updates (recommended)
+
+After installing, enable auto-updates so you get new versions automatically at startup:
+
+1. Run `/plugin` to open the plugin manager
+2. Go to the **Marketplaces** tab
+3. Select **mercator-ai**
+4. Select **Enable auto-update**
+
+Claude Code will check for updates on every startup and notify you when a new version is available.
+
+### Manual update
+
+```
+/plugin marketplace update mercator-ai
+/plugin update mercator-ai@mercator-ai
+```
+
+### For maintainers
+
+Use the release script to publish updates:
+
+```bash
+./scripts/release.sh patch    # 1.0.0 → 1.0.1 (bug fix)
+./scripts/release.sh minor    # 1.0.0 → 1.1.0 (new feature)
+./scripts/release.sh major    # 1.0.0 → 2.0.0 (breaking change)
+```
+
 ## Attribution
 
 Mercator AI is built upon [Cartographer](https://github.com/kingbootoshi/cartographer) by [Bootoshi](https://github.com/kingbootoshi). See [ATTRIBUTION.md](ATTRIBUTION.md) for details on what came from the original and what was added.
