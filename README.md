@@ -105,35 +105,14 @@ The post-commit hook (`hooks/mercator-auto-refresh.sh`) automatically:
 
 ```mermaid
 flowchart TD
-    A["/mercator-ai invoked"] --> B["1. scan-codebase.py\nRecursive file tree\nToken count + SHA-256\nMerkle tree + root hash"]
-    B --> C["2. Plan subagent assignments\nGroup files by module\nBalance token budgets\nSkip unchanged modules"]
-    C --> D["3. Spawn Sonnet subagents\n(parallel — one per module group)\nRead files, analyze dependencies\nReturn structured summaries"]
-    D --> E["4. Synthesize reports\nMerge subagent outputs\nBuild architecture diagrams\nCreate navigation guides"]
-    E --> F["5. Write outputs\ndocs/CODEBASE_MAP.md\ndocs/.mercator.json\nUpdate CLAUDE.md"]
-    F --> G["6. Post-commit hook\nAuto-refresh manifest on commit\nZero tokens, ~2 seconds"]
+    A["/mercator-ai invoked"] --> B["1. scan-codebase.py<br>Recursive file tree<br>Token count + SHA-256<br>Merkle tree + root hash"]
+    B --> C["2. Plan subagent assignments<br>Group files by module<br>Balance token budgets<br>Skip unchanged modules"]
+    C --> D["3. Spawn Sonnet subagents<br>(parallel — one per module group)<br>Read files, analyze dependencies<br>Return structured summaries"]
+    D --> E["4. Synthesize reports<br>Merge subagent outputs<br>Build architecture diagrams<br>Create navigation guides"]
+    E --> F["5. Write outputs<br>docs/CODEBASE_MAP.md<br>docs/.mercator.json<br>Update CLAUDE.md"]
+    F --> G["6. Post-commit hook<br>Auto-refresh manifest on commit<br>Zero tokens, ~2 seconds"]
 ```
 
-## Scanner CLI
-
-```bash
-# Full scan with merkle tree (JSON)
-uv run scan-codebase.py .
-
-# Human-readable tree with token counts
-uv run scan-codebase.py . --format tree
-
-# Tree with file hashes visible
-uv run scan-codebase.py . --format tree --show-hash
-
-# Just the merkle tree (for manifest storage)
-uv run scan-codebase.py . --format merkle
-
-# Compact: files sorted by token count
-uv run scan-codebase.py . --format compact
-
-# Diff against previous manifest
-uv run scan-codebase.py . --diff docs/.mercator.json
-```
 
 ## Map-First Exploration Protocol
 
