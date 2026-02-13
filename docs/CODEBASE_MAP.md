@@ -26,7 +26,7 @@ graph TD
     HOOK --> TLDR["TLDR cache invalidation"]
 
     RELEASE["scripts/release.sh"] --> PLUGJSON["plugin.json"]
-    RELEASE --> MKTJSON["marketplace.json"]
+    RELEASE --> MKTJSON["plugin.json"]
     RELEASE --> GH["GitHub release"]
 ```
 
@@ -35,7 +35,7 @@ graph TD
 ```
 mercator-ai/                          # Marketplace repo wrapper
 ├── .claude-plugin/
-│   └── marketplace.json              # Plugin registry entry for discovery
+│   └── plugin.json                   # Plugin registry entry for discovery
 ├── plugins/
 │   └── mercator-ai/                  # Actual plugin root
 │       ├── .claude-plugin/
@@ -65,7 +65,7 @@ mercator-ai/                          # Marketplace repo wrapper
 
 | File | Purpose | Tokens |
 |------|---------|--------|
-| `.claude-plugin/marketplace.json` | Plugin registry pointing to `./plugins/mercator-ai` | 253 |
+| `.claude-plugin/plugin.json` | Plugin registry pointing to `./plugins/mercator-ai` | 253 |
 | `README.md` | Installation, usage, feature comparison with Cartographer | 1,828 |
 | `scripts/release.sh` | Automated version bumping, git tagging, GitHub releases | 1,122 |
 | `.gitignore` | Python bytecode + venv exclusions | 32 |
@@ -179,7 +179,7 @@ sequenceDiagram
 
 ## Conventions
 
-- **Version sync**: `marketplace.json` and `plugin.json` versions must match. `release.sh` handles this.
+- **Version sync**: Root and nested `plugin.json` versions must match. `release.sh` handles this.
 - **Hash truncation**: SHA-256 truncated to 12 hex chars throughout.
 - **Merkle combination**: `sha256(sorted(child_hashes))` — order-independent.
 - **Token counting**: Uses `cl100k_base` encoding (may differ slightly from actual model tokenizer).
@@ -205,4 +205,4 @@ sequenceDiagram
 
 **To adjust the post-commit hook behavior**: Edit `plugins/mercator-ai/hooks/mercator-auto-refresh.sh`.
 
-**To update plugin metadata**: Edit both `plugins/mercator-ai/.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json`, or use `release.sh`.
+**To update plugin metadata**: Edit both `plugins/mercator-ai/.claude-plugin/plugin.json` and `.claude-plugin/plugin.json`, or use `release.sh`.

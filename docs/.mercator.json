@@ -2,16 +2,16 @@
   "root": "/Users/quartershots/Source/mercator-ai",
   "files": [
     {
-      "path": ".claude-plugin/marketplace.json",
-      "tokens": 267,
-      "size_bytes": 917,
-      "hash": "461b2f947ef3"
+      "path": ".claude-plugin/plugin.json",
+      "tokens": 269,
+      "size_bytes": 924,
+      "hash": "e9661b5654da"
     },
     {
       "path": "docs/.mercator.json",
-      "tokens": 2100,
-      "size_bytes": 6606,
-      "hash": "55b87ad91366"
+      "tokens": 2652,
+      "size_bytes": 8307,
+      "hash": "e6ac24aa2449"
     },
     {
       "path": "docs/.mercator.json.tmp",
@@ -99,9 +99,9 @@
     },
     {
       "path": "README.md",
-      "tokens": 1744,
-      "size_bytes": 6770,
-      "hash": "7ce3efba36e0"
+      "tokens": 1748,
+      "size_bytes": 6784,
+      "hash": "52c26ffa7e7c"
     },
     {
       "path": "SIMPLIFICATION_LOG.md",
@@ -124,27 +124,27 @@
     "plugins/mercator-ai/skills/mercator-ai/scripts",
     "scripts"
   ],
-  "total_tokens": 18625,
+  "total_tokens": 19183,
   "total_files": 18,
   "skipped": [],
   "merkle": {
-    "root_hash": "fcb06ea31ec9",
+    "root_hash": "d056f5911fb3",
     "tree": {
-      ".claude-plugin/marketplace.json": {
-        "hash": "461b2f947ef3",
-        "tokens": 267,
+      ".claude-plugin/plugin.json": {
+        "hash": "e9661b5654da",
+        "tokens": 269,
         "type": "file"
       },
       ".claude-plugin": {
-        "hash": "46490345b798",
+        "hash": "87c053605d08",
         "children": [
-          ".claude-plugin/marketplace.json"
+          ".claude-plugin/plugin.json"
         ],
         "type": "dir"
       },
       "docs/.mercator.json": {
-        "hash": "55b87ad91366",
-        "tokens": 2100,
+        "hash": "e6ac24aa2449",
+        "tokens": 2652,
         "type": "file"
       },
       "docs/.mercator.json.tmp": {
@@ -158,7 +158,7 @@
         "type": "file"
       },
       "docs": {
-        "hash": "f7e592320248",
+        "hash": "4e51af159c50",
         "children": [
           "docs/.mercator.json",
           "docs/.mercator.json.tmp",
@@ -305,8 +305,8 @@
         "type": "file"
       },
       "README.md": {
-        "hash": "7ce3efba36e0",
-        "tokens": 1744,
+        "hash": "52c26ffa7e7c",
+        "tokens": 1748,
         "type": "file"
       },
       "SIMPLIFICATION_LOG.md": {
@@ -315,7 +315,7 @@
         "type": "file"
       },
       "/": {
-        "hash": "fcb06ea31ec9",
+        "hash": "d056f5911fb3",
         "children": [
           ".claude-plugin",
           "docs",

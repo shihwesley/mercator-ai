@@ -9,7 +9,7 @@
 # What it does:
 #   1. Reads current version from plugin.json
 #   2. Bumps version according to semver type
-#   3. Updates plugin.json and marketplace.json
+#   3. Updates both plugin.json files
 #   4. Commits, tags, pushes
 #   5. Creates a GitHub release (prompts for release notes)
 #
@@ -20,7 +20,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 PLUGIN_JSON="$ROOT_DIR/.claude-plugin/plugin.json"
-MARKETPLACE_JSON="$ROOT_DIR/.claude-plugin/marketplace.json"
+MARKETPLACE_JSON="$ROOT_DIR/.claude-plugin/plugin.json"
 
 # --- Validate ---
 
@@ -87,14 +87,14 @@ fi
 
 jq --arg v "$NEW_VERSION" '.version = $v' "$PLUGIN_JSON" > "$PLUGIN_JSON.tmp" && mv "$PLUGIN_JSON.tmp" "$PLUGIN_JSON"
 
-# --- Update version in marketplace.json ---
+# --- Update version in root plugin.json ---
 
 jq --arg v "$NEW_VERSION" '
   .metadata.version = $v |
   .plugins[0].version = $v
 ' "$MARKETPLACE_JSON" > "$MARKETPLACE_JSON.tmp" && mv "$MARKETPLACE_JSON.tmp" "$MARKETPLACE_JSON"
 
-echo "Updated plugin.json and marketplace.json → v$NEW_VERSION"
+echo "Updated both plugin.json files → v$NEW_VERSION"
 
 # --- Get release notes ---
 
