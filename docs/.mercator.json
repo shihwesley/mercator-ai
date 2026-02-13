@@ -3,12 +3,18 @@
   "files": [
     {
       "path": ".claude-plugin/marketplace.json",
-      "tokens": 253,
-      "size_bytes": 872,
-      "hash": "54d541adea6d"
+      "tokens": 267,
+      "size_bytes": 917,
+      "hash": "461b2f947ef3"
     },
     {
       "path": "docs/.mercator.json",
+      "tokens": 2100,
+      "size_bytes": 6606,
+      "hash": "55b87ad91366"
+    },
+    {
+      "path": "docs/.mercator.json.tmp",
       "tokens": 0,
       "size_bytes": 0,
       "hash": "e3b0c44298fc"
@@ -21,9 +27,15 @@
     },
     {
       "path": "plugins/mercator-ai/.claude-plugin/plugin.json",
-      "tokens": 230,
-      "size_bytes": 787,
-      "hash": "17f6689674f5"
+      "tokens": 321,
+      "size_bytes": 1223,
+      "hash": "058985503e3d"
+    },
+    {
+      "path": "plugins/mercator-ai/commands/mercator-ai.md",
+      "tokens": 194,
+      "size_bytes": 726,
+      "hash": "9255d239099e"
     },
     {
       "path": "plugins/mercator-ai/docs/MAP_FIRST_PROTOCOL.md",
@@ -33,27 +45,33 @@
     },
     {
       "path": "plugins/mercator-ai/hooks/mercator-auto-refresh.sh",
-      "tokens": 993,
-      "size_bytes": 3246,
-      "hash": "303f4cbdf7f2"
+      "tokens": 951,
+      "size_bytes": 3112,
+      "hash": "7caebc7e3fd0"
     },
     {
       "path": "plugins/mercator-ai/skills/mercator-ai/scripts/scan-codebase.py",
-      "tokens": 4068,
-      "size_bytes": 16957,
-      "hash": "bd8f16486877"
+      "tokens": 4017,
+      "size_bytes": 16723,
+      "hash": "0a12279358ea"
     },
     {
       "path": "plugins/mercator-ai/skills/mercator-ai/SKILL.md",
-      "tokens": 2274,
-      "size_bytes": 9114,
-      "hash": "2ce72e4d0331"
+      "tokens": 2555,
+      "size_bytes": 10370,
+      "hash": "615f7df9e8e3"
     },
     {
       "path": "plugins/mercator-ai/ATTRIBUTION.md",
       "tokens": 407,
       "size_bytes": 1854,
       "hash": "9185384c3194"
+    },
+    {
+      "path": "plugins/mercator-ai/CHANGELOG.md",
+      "tokens": 276,
+      "size_bytes": 1124,
+      "hash": "198aae4bb0ee"
     },
     {
       "path": "plugins/mercator-ai/LICENSE",
@@ -74,10 +92,22 @@
       "hash": "55d9d6497157"
     },
     {
+      "path": "CLAUDE.md",
+      "tokens": 121,
+      "size_bytes": 519,
+      "hash": "a753ca270d87"
+    },
+    {
       "path": "README.md",
-      "tokens": 1828,
-      "size_bytes": 7482,
-      "hash": "9f6b777a9165"
+      "tokens": 1744,
+      "size_bytes": 6770,
+      "hash": "7ce3efba36e0"
+    },
+    {
+      "path": "SIMPLIFICATION_LOG.md",
+      "tokens": 1314,
+      "size_bytes": 5013,
+      "hash": "a1161fdaa1a7"
     }
   ],
   "directories": [
@@ -86,6 +116,7 @@
     "plugins",
     "plugins/mercator-ai",
     "plugins/mercator-ai/.claude-plugin",
+    "plugins/mercator-ai/commands",
     "plugins/mercator-ai/docs",
     "plugins/mercator-ai/hooks",
     "plugins/mercator-ai/skills",
@@ -93,25 +124,30 @@
     "plugins/mercator-ai/skills/mercator-ai/scripts",
     "scripts"
   ],
-  "total_tokens": 14411,
-  "total_files": 13,
+  "total_tokens": 18625,
+  "total_files": 18,
   "skipped": [],
   "merkle": {
-    "root_hash": "46e1d9127925",
+    "root_hash": "fcb06ea31ec9",
     "tree": {
       ".claude-plugin/marketplace.json": {
-        "hash": "54d541adea6d",
-        "tokens": 253,
+        "hash": "461b2f947ef3",
+        "tokens": 267,
         "type": "file"
       },
       ".claude-plugin": {
-        "hash": "a6657e103ee9",
+        "hash": "46490345b798",
         "children": [
           ".claude-plugin/marketplace.json"
         ],
         "type": "dir"
       },
       "docs/.mercator.json": {
+        "hash": "55b87ad91366",
+        "tokens": 2100,
+        "type": "file"
+      },
+      "docs/.mercator.json.tmp": {
         "hash": "e3b0c44298fc",
         "tokens": 0,
         "type": "file"
@@ -122,22 +158,35 @@
         "type": "file"
       },
       "docs": {
-        "hash": "120945e4cdcc",
+        "hash": "f7e592320248",
         "children": [
           "docs/.mercator.json",
+          "docs/.mercator.json.tmp",
           "docs/CODEBASE_MAP.md"
         ],
         "type": "dir"
       },
       "plugins/mercator-ai/.claude-plugin/plugin.json": {
-        "hash": "17f6689674f5",
-        "tokens": 230,
+        "hash": "058985503e3d",
+        "tokens": 321,
         "type": "file"
       },
       "plugins/mercator-ai/.claude-plugin": {
-        "hash": "37f0c11bdd9a",
+        "hash": "b77685a13980",
         "children": [
           "plugins/mercator-ai/.claude-plugin/plugin.json"
+        ],
+        "type": "dir"
+      },
+      "plugins/mercator-ai/commands/mercator-ai.md": {
+        "hash": "9255d239099e",
+        "tokens": 194,
+        "type": "file"
+      },
+      "plugins/mercator-ai/commands": {
+        "hash": "3924944d2a42",
+        "children": [
+          "plugins/mercator-ai/commands/mercator-ai.md"
         ],
         "type": "dir"
       },
@@ -154,36 +203,36 @@
         "type": "dir"
       },
       "plugins/mercator-ai/hooks/mercator-auto-refresh.sh": {
-        "hash": "303f4cbdf7f2",
-        "tokens": 993,
+        "hash": "7caebc7e3fd0",
+        "tokens": 951,
         "type": "file"
       },
       "plugins/mercator-ai/hooks": {
-        "hash": "30967cd3c15a",
+        "hash": "3bcd4c98861c",
         "children": [
           "plugins/mercator-ai/hooks/mercator-auto-refresh.sh"
         ],
         "type": "dir"
       },
       "plugins/mercator-ai/skills/mercator-ai/scripts/scan-codebase.py": {
-        "hash": "bd8f16486877",
-        "tokens": 4068,
+        "hash": "0a12279358ea",
+        "tokens": 4017,
         "type": "file"
       },
       "plugins/mercator-ai/skills/mercator-ai/scripts": {
-        "hash": "2ba5b920e3be",
+        "hash": "ddf9110b0c5d",
         "children": [
           "plugins/mercator-ai/skills/mercator-ai/scripts/scan-codebase.py"
         ],
         "type": "dir"
       },
       "plugins/mercator-ai/skills/mercator-ai/SKILL.md": {
-        "hash": "2ce72e4d0331",
-        "tokens": 2274,
+        "hash": "615f7df9e8e3",
+        "tokens": 2555,
         "type": "file"
       },
       "plugins/mercator-ai/skills/mercator-ai": {
-        "hash": "660e2a42127b",
+        "hash": "71ee1a0ca3a4",
         "children": [
           "plugins/mercator-ai/skills/mercator-ai/scripts",
           "plugins/mercator-ai/skills/mercator-ai/SKILL.md"
@@ -191,7 +240,7 @@
         "type": "dir"
       },
       "plugins/mercator-ai/skills": {
-        "hash": "a9d6162cd5f7",
+        "hash": "214601c991d3",
         "children": [
           "plugins/mercator-ai/skills/mercator-ai"
         ],
@@ -202,25 +251,32 @@
         "tokens": 407,
         "type": "file"
       },
+      "plugins/mercator-ai/CHANGELOG.md": {
+        "hash": "198aae4bb0ee",
+        "tokens": 276,
+        "type": "file"
+      },
       "plugins/mercator-ai/LICENSE": {
         "hash": "b8aad5c693c5",
         "tokens": 263,
         "type": "file"
       },
       "plugins/mercator-ai": {
-        "hash": "33e8c6ff31a4",
+        "hash": "06bcafa5f8e6",
         "children": [
           "plugins/mercator-ai/.claude-plugin",
+          "plugins/mercator-ai/commands",
           "plugins/mercator-ai/docs",
           "plugins/mercator-ai/hooks",
           "plugins/mercator-ai/skills",
           "plugins/mercator-ai/ATTRIBUTION.md",
+          "plugins/mercator-ai/CHANGELOG.md",
           "plugins/mercator-ai/LICENSE"
         ],
         "type": "dir"
       },
       "plugins": {
-        "hash": "01fe0817f32f",
+        "hash": "37ca3febcae9",
         "children": [
           "plugins/mercator-ai"
         ],
@@ -243,20 +299,32 @@
         "tokens": 32,
         "type": "file"
       },
+      "CLAUDE.md": {
+        "hash": "a753ca270d87",
+        "tokens": 121,
+        "type": "file"
+      },
       "README.md": {
-        "hash": "9f6b777a9165",
-        "tokens": 1828,
+        "hash": "7ce3efba36e0",
+        "tokens": 1744,
+        "type": "file"
+      },
+      "SIMPLIFICATION_LOG.md": {
+        "hash": "a1161fdaa1a7",
+        "tokens": 1314,
         "type": "file"
       },
       "/": {
-        "hash": "46e1d9127925",
+        "hash": "fcb06ea31ec9",
         "children": [
           ".claude-plugin",
           "docs",
           "plugins",
           "scripts",
           ".gitignore",
-          "README.md"
+          "CLAUDE.md",
+          "README.md",
+          "SIMPLIFICATION_LOG.md"
         ],
         "type": "dir"
       }
