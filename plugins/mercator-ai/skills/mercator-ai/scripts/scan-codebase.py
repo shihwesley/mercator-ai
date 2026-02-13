@@ -77,8 +77,6 @@ def parse_gitignore(root: Path) -> list[str]:
 def matches_pattern(path: Path, pattern: str, root: Path) -> bool:
     """Check if a path matches a gitignore-style pattern."""
     import fnmatch
-    rel_path = str(path.relative_to(root))
-    name = path.name
 
     if pattern.startswith("!"):
         return False
@@ -88,12 +86,12 @@ def matches_pattern(path: Path, pattern: str, root: Path) -> bool:
             return False
         pattern = pattern[:-1]
 
+    rel_path = str(path.relative_to(root))
     if "/" in pattern:
-        if pattern.startswith("/"):
-            pattern = pattern[1:]
+        pattern = pattern.lstrip("/")
         return fnmatch.fnmatch(rel_path, pattern) or fnmatch.fnmatch(rel_path, pattern + "/**")
-    else:
-        return fnmatch.fnmatch(name, pattern)
+
+    return fnmatch.fnmatch(path.name, pattern)
 
 
 def should_ignore(path: Path, root: Path, gitignore_patterns: list[str]) -> bool:
@@ -102,17 +100,10 @@ def should_ignore(path: Path, root: Path, gitignore_patterns: list[str]) -> bool
     name = path.name
 
     for pattern in DEFAULT_IGNORE:
-        if "*" in pattern:
-            if fnmatch.fnmatch(name, pattern):
-                return True
-        elif name == pattern:
+        if ("*" in pattern and fnmatch.fnmatch(name, pattern)) or name == pattern:
             return True
 
-    for pattern in gitignore_patterns:
-        if matches_pattern(path, pattern, root):
-            return True
-
-    return False
+    return any(matches_pattern(path, pattern, root) for pattern in gitignore_patterns)
 
 
 def count_tokens(text: str, encoding: tiktoken.Encoding) -> int:
@@ -363,17 +354,17 @@ def format_tree(scan_result: dict, show_tokens: bool = True, show_hash: bool = F
             current = current[part]
         current[parts[-1]] = f
 
-    def print_tree(node: dict, prefix: str = "", is_last: bool = True):
-        items = sorted(node.items(), key=lambda x: (not isinstance(x[1], dict) or "tokens" in x[1], x[0].lower()))
+    def print_tree(node: dict, prefix: str = ""):
+        items = sorted(node.items(), key=lambda x: ("tokens" in x[1], x[0].lower()))
 
         for i, (name, value) in enumerate(items):
-            is_last_item = i == len(items) - 1
-            connector = "└── " if is_last_item else "├── "
+            is_last = i == len(items) - 1
+            connector = "└── " if is_last else "├── "
 
             if isinstance(value, dict) and "tokens" not in value:
                 lines.append(f"{prefix}{connector}{name}/")
-                extension = "    " if is_last_item else "│   "
-                print_tree(value, prefix + extension, is_last_item)
+                extension = "    " if is_last else "│   "
+                print_tree(value, prefix + extension)
             else:
                 tokens = value.get("tokens", 0)
                 hash_str = value.get("hash", "")

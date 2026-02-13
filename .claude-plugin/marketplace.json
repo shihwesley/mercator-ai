@@ -2,6 +2,7 @@
   "name": "mercator-ai",
   "owner": {
     "name": "shihwesley",
+    "email": "shih.wesley@gmail.com",
     "url": "https://github.com/shihwesley"
   },
   "metadata": {
@@ -17,7 +18,7 @@
       "category": "developer tools",
       "keywords": ["codebase", "architecture", "documentation", "mapping", "merkle-tree", "change-detection", "subagents", "onboarding"],
       "license": "MIT",
-      "repository": "https://github.com/shihwesley/mercator-ai"
+      "repository": "https://github.com/shihwesley/shihwesley-plugins"
     }
   ]
 }

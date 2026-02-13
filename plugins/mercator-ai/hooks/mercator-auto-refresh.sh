@@ -44,7 +44,7 @@ fi
 [ -z "$SCANNER" ] && exit 0
 
 # --- Step 1: Get diff BEFORE refreshing manifest ---
-PYTHON=$(/usr/bin/which python3 2>/dev/null || echo "/opt/homebrew/bin/python3")
+PYTHON=$(command -v python3 || echo "python3")
 DIFF_OUTPUT=$(cd "$PROJECT_ROOT" && "$PYTHON" "$SCANNER" . --diff "$MANIFEST" 2>/dev/null) || exit 0
 HAS_CHANGES=$(echo "$DIFF_OUTPUT" | jq -r '.has_changes // false' 2>/dev/null)
 
@@ -57,17 +57,14 @@ cd "$PROJECT_ROOT" && "$PYTHON" "$SCANNER" . --format json > "$MANIFEST.tmp" 2>/
 # --- Step 3: Invalidate TLDR cache for changed/added files (graceful if no TLDR) ---
 TLDR_CACHE="$HOME/.claude/cache/tldr"
 if [ -d "$TLDR_CACHE" ]; then
-  CHANGED_FILES=$(echo "$DIFF_OUTPUT" | jq -r '(.changed // []) + (.added // []) | .[]' 2>/dev/null)
-  for file in $CHANGED_FILES; do
-    CACHE_KEY=$(echo -n "$PROJECT_ROOT/$file" | md5 2>/dev/null || echo -n "$PROJECT_ROOT/$file" | md5sum 2>/dev/null | cut -d' ' -f1)
+  echo "$DIFF_OUTPUT" | jq -r '(.changed // []) + (.added // []) | .[]' 2>/dev/null | while read -r file; do
+    CACHE_KEY=$(echo -n "$PROJECT_ROOT/$file" | md5 2>/dev/null || echo -n "$PROJECT_ROOT/$file" | md5sum | cut -d' ' -f1)
     rm -f "$TLDR_CACHE/$CACHE_KEY"* 2>/dev/null
   done
 fi
 
 # --- Step 4: Report what happened ---
-CHANGED=$(echo "$DIFF_OUTPUT" | jq -r '.changed | length // 0' 2>/dev/null)
-ADDED=$(echo "$DIFF_OUTPUT" | jq -r '.added | length // 0' 2>/dev/null)
-REMOVED=$(echo "$DIFF_OUTPUT" | jq -r '.removed | length // 0' 2>/dev/null)
+read -r CHANGED ADDED REMOVED < <(echo "$DIFF_OUTPUT" | jq -r '[(.changed | length // 0), (.added | length // 0), (.removed | length // 0)] | @tsv' 2>/dev/null)
 
 echo "Merkle manifest refreshed (changed: $CHANGED, added: $ADDED, removed: $REMOVED)."
 

@@ -251,14 +251,18 @@ Built upon Bootoshi's Cartographer: https://github.com/kingbootoshi/cartographer
 
 ## Update Mode
 
-When updating an existing map:
+When updating an existing map (manifest found at `docs/.mercator.json`):
 
 1. Run `--diff` against the manifest to identify changes
-2. Spawn subagents only for changed modules
-3. Merge new analysis with existing map
-4. Update `last_mapped` timestamp (run `date -u +"%Y-%m-%dT%H:%M:%SZ"` to get actual time)
-5. Preserve unchanged sections
-6. Regenerate the manifest
+2. Parse the diff output — it returns `has_changes`, `changed`, `added`, `removed` lists
+3. If `has_changes` is false, inform the user the map is current and stop
+4. Group changed/added files by module or directory
+5. Spawn subagents only for affected modules — unchanged modules keep their existing sections
+6. Merge new analysis with existing `CODEBASE_MAP.md`, replacing only the affected module sections
+7. Update `last_mapped` timestamp (run `date -u +"%Y-%m-%dT%H:%M:%SZ"` to get actual time)
+8. Preserve unchanged sections verbatim — do not rewrite prose that hasn't changed
+9. Regenerate the manifest by running the scanner again
+10. If files were removed, delete their entries from the Module Guide and update the Directory Structure
 
 ## Token Budget Reference
 
@@ -290,3 +294,14 @@ Try `python3`, `python`, or use `uv run` which handles Python automatically.
 **Git not available:**
 - Merkle diff works without git — it compares hashes directly
 - No need for git history, just current file state vs manifest
+
+**Hook not triggering after commits:**
+- Verify `plugin.json` has `PostToolUse` hook registered (case-sensitive)
+- Check that `mercator-auto-refresh.sh` has executable permission (`chmod +x`)
+- Confirm `docs/.mercator.json` exists — the hook skips repos that haven't been mapped yet
+- The hook only triggers on `git commit` commands, not `git push`, `git merge`, etc.
+
+**Manifest out of sync with map prose:**
+- The post-commit hook refreshes hashes automatically but does not update architecture descriptions
+- If new files or modules were added/removed, run `/mercator-ai` to regenerate the prose sections
+- Hash-only changes (edited files) don't need a full re-map — the hook handles those

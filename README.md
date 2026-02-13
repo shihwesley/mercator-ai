@@ -4,7 +4,23 @@ Merkle-enhanced codebase mapping for AI agents. Maps codebases of any size using
 
 > Built upon [Bootoshi's Cartographer](https://github.com/kingbootoshi/cartographer), enhanced with Merkle tree change detection, post-commit hooks, and a map-first exploration protocol.
 
+## Table of Contents
+
+- [What's Different from Cartographer?](#whats-different-from-cartographer)
+- [Install](#install)
+- [Usage](#usage)
+- [How It Works](#how-it-works)
+- [Scanner CLI](#scanner-cli)
+- [Map-First Exploration Protocol](#map-first-exploration-protocol)
+- [Merkle Tree](#merkle-tree)
+- [Output Structure](#output-structure)
+- [Updating](#updating)
+- [Attribution](#attribution)
+- [License](#license)
+
 ## What's Different from Cartographer?
+
+[Cartographer](https://github.com/kingbootoshi/cartographer) is a Claude Code plugin by Bootoshi that maps codebases using parallel subagents and token counting. Mercator AI started as a fork and adds merkle-based change detection so you don't re-scan files that haven't changed.
 
 | Feature | Cartographer | Mercator AI |
 |---------|-------------|-------------|
@@ -22,21 +38,21 @@ Merkle-enhanced codebase mapping for AI agents. Maps codebases of any size using
 ### Add the marketplace and install
 
 ```
-/plugin marketplace add shihwesley/mercator-ai
+/plugin marketplace add shihwesley/shihwesley-plugins
 /plugin install mercator-ai@mercator-ai
 ```
 
 Or via CLI:
 
 ```bash
-claude plugin marketplace add shihwesley/mercator-ai
+claude plugin marketplace add shihwesley/shihwesley-plugins
 claude plugin install mercator-ai@mercator-ai
 ```
 
 ### Manual (GitHub)
 
 ```bash
-git clone https://github.com/shihwesley/mercator-ai.git ~/.claude/plugins/mercator-ai
+git clone https://github.com/shihwesley/shihwesley-plugins.git ~/.claude/plugins/mercator-ai
 ```
 
 ### Dependencies
@@ -87,56 +103,14 @@ The post-commit hook (`hooks/mercator-auto-refresh.sh`) automatically:
 
 ## How It Works
 
-```
-/mercator-ai invoked
-        |
-        v
-+---------------------------------------+
-|  1. Run scan-codebase.py              |
-|     - Recursive file tree             |
-|     - Token count + SHA-256 per file  |
-|     - Merkle tree with root hash      |
-|     - Respects .gitignore             |
-+---------------------------------------+
-        |
-        v
-+---------------------------------------+
-|  2. Plan subagent assignments         |
-|     - Group files by module           |
-|     - Balance token budgets           |
-|     - Skip unchanged modules (diff)   |
-+---------------------------------------+
-        |
-        v
-+---------------------------------------+
-|  3. Spawn Sonnet subagents PARALLEL   |
-|     - Each reads assigned files       |
-|     - Analyzes purpose, dependencies  |
-|     - Returns structured summary      |
-+---------------------------------------+
-        |
-        v
-+---------------------------------------+
-|  4. Synthesize all reports            |
-|     - Merge subagent outputs          |
-|     - Build architecture diagram      |
-|     - Create navigation guides        |
-+---------------------------------------+
-        |
-        v
-+---------------------------------------+
-|  5. Write outputs                     |
-|     - docs/CODEBASE_MAP.md            |
-|     - docs/.mercator.json (manifest)  |
-|     - Update CLAUDE.md with summary   |
-+---------------------------------------+
-        |
-        v
-+---------------------------------------+
-|  6. Post-commit hook keeps it fresh   |
-|     - Auto-refresh manifest on commit |
-|     - Zero tokens, ~2 seconds         |
-+---------------------------------------+
+```mermaid
+flowchart TD
+    A["/mercator-ai invoked"] --> B["1. scan-codebase.py\nRecursive file tree\nToken count + SHA-256\nMerkle tree + root hash"]
+    B --> C["2. Plan subagent assignments\nGroup files by module\nBalance token budgets\nSkip unchanged modules"]
+    C --> D["3. Spawn Sonnet subagents\n(parallel — one per module group)\nRead files, analyze dependencies\nReturn structured summaries"]
+    D --> E["4. Synthesize reports\nMerge subagent outputs\nBuild architecture diagrams\nCreate navigation guides"]
+    E --> F["5. Write outputs\ndocs/CODEBASE_MAP.md\ndocs/.mercator.json\nUpdate CLAUDE.md"]
+    F --> G["6. Post-commit hook\nAuto-refresh manifest on commit\nZero tokens, ~2 seconds"]
 ```
 
 ## Scanner CLI
