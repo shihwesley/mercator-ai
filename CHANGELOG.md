@@ -5,6 +5,17 @@ All notable changes to mercator-ai will be documented in this file.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2026-02-23
+
+### Fixed
+- Flatten plugin structure so `/mercator-ai` registers as a slash command (e7b5117)
+- Replace marketplace wrapper with flat plugin manifest for correct cache resolution (8fdd404)
+
+### Other
+- Fix marketplace name in install commands and manifest (7f3c431)
+- Fix Mermaid diagram rendering on GitHub, remove Scanner CLI section (1d2af4a)
+- Audit fixes, marketplace URL update, README overhaul, new command (270f179)
+
 ## [1.0.0] - 2026-02-06
 
 ### Added
