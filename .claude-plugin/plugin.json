@@ -1,24 +1,27 @@
 {
-  "name": "shihwesley-plugins",
-  "owner": {
+  "name": "mercator-ai",
+  "version": "1.0.0",
+  "description": "Maps codebases of any size using parallel Sonnet subagents with Merkle-tree change detection. Generates docs/CODEBASE_MAP.md with architecture diagrams, module guides, data flows, and navigation guides. Creates docs/.mercator.json merkle manifest for O(1) staleness checks — compare a single root hash to know if anything changed. Post-commit hook auto-refreshes hashes in ~2 seconds with zero API tokens. Supports incremental updates: only re-explores changed modules. Works without git via pure hash-based diff.",
+  "author": {
     "name": "shihwesley",
     "email": "shih.wesley@gmail.com",
     "url": "https://github.com/shihwesley"
   },
-  "metadata": {
-    "description": "Merkle-enhanced codebase mapping for AI agents with O(1) change detection",
-    "version": "1.0.0"
-  },
-  "plugins": [
-    {
-      "name": "mercator-ai",
-      "source": "./plugins/mercator-ai",
-      "description": "Merkle-enhanced codebase mapping for AI agents. O(1) change detection, zero-token staleness prevention, parallel subagent analysis. Creates docs/CODEBASE_MAP.md and docs/.mercator.json merkle manifest.",
-      "version": "1.0.0",
-      "category": "developer tools",
-      "keywords": ["codebase", "architecture", "documentation", "mapping", "merkle-tree", "change-detection", "subagents", "onboarding"],
-      "license": "MIT",
-      "repository": "https://github.com/shihwesley/shihwesley-plugins"
-    }
-  ]
+  "homepage": "https://github.com/shihwesley/shihwesley-plugins",
+  "repository": "https://github.com/shihwesley/shihwesley-plugins",
+  "license": "MIT",
+  "keywords": ["codebase", "architecture", "documentation", "mapping", "merkle-tree", "change-detection"],
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/mercator-auto-refresh.sh"
+          }
+        ]
+      }
+    ]
+  }
 }
